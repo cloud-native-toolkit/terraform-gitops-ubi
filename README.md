@@ -1,6 +1,6 @@
 # Terraform GitOps UBI module
 
-![Verify and release module](https://github.com/ibm-garage-cloud/terraform-gitops-ubi/workflows/Verify%20and%20release%20module/badge.svg)
+![Verify and release module](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify.yaml/badge.svg)
 
 ## 1. Objective
 
