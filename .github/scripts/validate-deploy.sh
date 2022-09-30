@@ -41,6 +41,7 @@ echo "******************************"
 ROOT_PATH=$(pwd)
 echo "ROOT_PATH: $ROOT_PATH"
 cat $ROOT_PATH/gitops-output.json
+echo ""
 echo "******************************"
 
 NAMESPACE=$(cat .namespace)
@@ -73,10 +74,15 @@ echo ""
 validate_gitops_content "${NAMESPACE}" "${LAYER}" "${SERVER_NAME}" "${TYPE}" "${COMPONENT_NAME}" "values.yaml"
 
 echo "******************************"
-echo " 1. validate deployment check_k8s_namespace"
+echo " 2. validate deployment check_k8s_namespace"
 echo "******************************"
 echo ""
 check_k8s_namespace "${NAMESPACE}"
+
+echo "******************************"
+echo " 3. validate deployment check_k8s_pod"
+echo "******************************"
+check_k8s_pod "${NAMESPACE}" "${COMPONENT_NAME}"
 
 #check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
 
