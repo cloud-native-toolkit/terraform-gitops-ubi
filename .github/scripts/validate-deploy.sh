@@ -37,10 +37,11 @@ echo "******************************"
 echo " show gitops-output.json content"
 echo "******************************"
 echo ""
+echo "******************************"
 ROOT_PATH=$(pwd)
 echo "ROOT_PATH: $ROOT_PATH"
 cat $ROOT_PATH/gitops-output.json
-
+echo "******************************"
 
 NAMESPACE=$(cat .namespace)
 COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
