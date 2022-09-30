@@ -10,11 +10,15 @@ Therefor it just deploys a pure [ubi image](https://catalog.redhat.com/software/
 
 The ubi helm-chart example based on the [ubi-helm repository](https://github.com/thomassuedbroecker/ubi-helm).
 
+You can pass a command for the start up of the container with the module variable `command`.
+
 ## 2. Example deployment
 
-The following section shows an deployment with the `terraform-gitops-ubi` module using GitOps.
+The following section shows an example deployment with the `terraform-gitops-ubi` module using GitOps.
 
 ### GitOps in Argo CD
+
+Here you see the deployment with GitOps.
 
 * GitOps context (app-of-apps)
 
@@ -27,6 +31,16 @@ The following section shows an deployment with the `terraform-gitops-ubi` module
 ### Access a running UBI container in OpenShift
 
 ![](images/module-03.gif)
+
+* Access the UBI container from local machine
+
+```sh
+export PROJECT_NAME=ubi-helm
+export CHART_NAME=ubi-helm
+oc get pods
+POD=$(oc get -n $PROJECT_NAME pods | grep $CHART_NAME | head -n 1 | awk '{print $1;}')
+oc exec -n $PROJECT_NAME $POD --container $CHART_NAME -- ls
+```
 
 ## 3. Software dependencies
 
@@ -42,6 +56,8 @@ None
 
 ## 4. Example usage
 
+Below you can see the possible input variables.
+
 ```hcl-terraform
 module "terraform-gitops-ubi" {
    source = "TBD/terraform-gitops-ubi.git"
@@ -51,5 +67,6 @@ module "terraform-gitops-ubi" {
    server_name = module.gitops.server_name
    namespace = module.gitops_namespace.name
    kubeseal_cert = module.gitops.sealed_secrets_cert
+   command = "echo 'hello world'"
 }
 ```
