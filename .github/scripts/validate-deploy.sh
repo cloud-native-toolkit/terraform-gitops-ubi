@@ -32,6 +32,14 @@ if ! command -v ibmcloud 1> /dev/null 2> /dev/null; then
 fi
 
 export KUBECONFIG=$(cat .kubeconfig)
+
+echo "******************************"
+echo " show gitops-output.json content"
+echo "******************************"
+echo ""
+cat gitops-output.json
+
+
 NAMESPACE=$(cat .namespace)
 COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
 BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
@@ -49,8 +57,16 @@ find . -name "*"
 
 set -e
 
+echo "******************************"
+echo " 1. validate deployment validate_gitops_content"
+echo "******************************"
+echo ""
 validate_gitops_content "${NAMESPACE}" "${LAYER}" "${SERVER_NAME}" "${TYPE}" "${COMPONENT_NAME}" "values.yaml"
 
+echo "******************************"
+echo " 1. validate deployment check_k8s_namespace"
+echo "******************************"
+echo ""
 check_k8s_namespace "${NAMESPACE}"
 
 #check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
