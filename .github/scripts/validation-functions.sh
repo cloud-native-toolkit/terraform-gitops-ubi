@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
+echo "******************************"
+echo " validate functions script"
+echo "******************************"
+echo ""
 
 validate_gitops_content () {
+  echo "******************************"
+  echo " validate functions 'validate_gitops_content'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
   local GITOPS_LAYER="$2"
   local GITOPS_SERVER_NAME="$3"
@@ -28,6 +37,11 @@ validate_gitops_content () {
 }
 
 check_k8s_namespace () {
+  echo "******************************"
+  echo " validate functions 'check_k8s_namespace'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
 
   count=0
@@ -47,6 +61,11 @@ check_k8s_namespace () {
 }
 
 check_k8s_resource () {
+  echo "******************************"
+  echo " validate functions 'check_k8s_resource'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
   local GITOPS_TYPE="$2"
   local NAME="$3"
