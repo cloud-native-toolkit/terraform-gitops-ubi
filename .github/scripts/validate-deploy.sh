@@ -37,7 +37,9 @@ echo "******************************"
 echo " show gitops-output.json content"
 echo "******************************"
 echo ""
-cat gitops-output.json
+ROOT_PATH=$(pwd)
+echo "ROOT_PATH: $ROOT_PATH"
+cat $ROOT_PATH/gitops-output.json
 
 
 NAMESPACE=$(cat .namespace)
