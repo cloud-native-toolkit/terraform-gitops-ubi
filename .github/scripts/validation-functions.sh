@@ -82,9 +82,16 @@ check_k8s_pod () {
     exit 1
   else
     echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
+    echo "Component name: ${COMPONENT_NAME}"
     kubectl get pods -n "${NS}"
+    
     POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')
-    kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
+    
+    if [[ $POD == "" ]] ; then
+      echo "No pod found for ${COMPONENT_NAME} in ${NS}"
+    else     
+      kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
+    fi
     sleep 30
   fi
 }
