@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
+echo "******************************"
+echo " validate functions script"
+echo "******************************"
+echo ""
 
 validate_gitops_content () {
+  echo "******************************"
+  echo " validate functions 'validate_gitops_content'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
   local GITOPS_LAYER="$2"
   local GITOPS_SERVER_NAME="$3"
@@ -28,6 +37,11 @@ validate_gitops_content () {
 }
 
 check_k8s_namespace () {
+  echo "******************************"
+  echo " validate functions 'check_k8s_namespace'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
 
   count=0
@@ -46,7 +60,48 @@ check_k8s_namespace () {
   fi
 }
 
+check_k8s_pod () {
+  echo "******************************"
+  echo " validate functions 'check_k8s_pod'"
+  echo "******************************"
+  echo ""
+
+  local NS="$1"
+  local COMPONENT_NAME="$2"
+
+  count=0
+  until kubectl get namespace "${NS}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+    echo "Waiting for namespace: ${NS}"
+    count=$((count + 1))
+    sleep 15
+  done
+  
+  kubectl get pods -n "${NS}"
+  if [[ $count -eq 20 ]]; then
+    echo "Timed out waiting for namespace: ${NS}" >&2
+    exit 1
+  else
+    echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
+    echo "Component name: ${COMPONENT_NAME}"
+    kubectl get pods -n "${NS}"
+    
+    POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')
+    
+    if [[ $POD == "" ]] ; then
+      echo "No pod found for ${COMPONENT_NAME} in ${NS}"
+    else     
+      kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
+    fi
+    sleep 30
+  fi
+}
+
 check_k8s_resource () {
+  echo "******************************"
+  echo " validate functions 'check_k8s_resource'"
+  echo "******************************"
+  echo ""
+
   local NS="$1"
   local GITOPS_TYPE="$2"
   local NAME="$3"
