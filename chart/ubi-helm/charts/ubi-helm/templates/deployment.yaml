@@ -37,3 +37,10 @@ spec:
               $COMMAND;
               sleep 1000;
               done;
+          livenessProbe:
+            exec:
+              command:
+              - echo
+              - 'hello world'
+            initialDelaySeconds: 5
+            periodSeconds: 5
