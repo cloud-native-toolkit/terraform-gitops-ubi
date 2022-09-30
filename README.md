@@ -12,9 +12,11 @@ The ubi helm-chart example based on the [ubi-helm repository](https://github.com
 
 ## 2. Example deployment
 
-The following section shows an deployment with the `terraform-gitops-ubi` module using GitOps.
+The following section shows an example deployment with the `terraform-gitops-ubi` module using GitOps.
 
 ### GitOps in Argo CD
+
+Here you see the deployment with GitOps.
 
 * GitOps context (app-of-apps)
 
@@ -27,6 +29,16 @@ The following section shows an deployment with the `terraform-gitops-ubi` module
 ### Access a running UBI container in OpenShift
 
 ![](images/module-03.gif)
+
+* Access the UBI container from local machine
+
+```sh
+export PROJECT_NAME=ubi-helm
+export CHART_NAME=ubi-helm
+oc get pods
+POD=$(oc get -n $PROJECT_NAME pods | grep $CHART_NAME | head -n 1 | awk '{print $1;}')
+oc exec -n $PROJECT_NAME $POD --container $CHART_NAME -- ls
+```
 
 ## 3. Software dependencies
 
