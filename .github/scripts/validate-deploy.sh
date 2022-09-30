@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+echo "******************************"
+echo " validate deployment script"
+echo "******************************"
+echo ""
+
 SCRIPT_DIR=$(cd $(dirname "$0"); pwd -P)
 
 GIT_REPO=$(cat git_repo)
