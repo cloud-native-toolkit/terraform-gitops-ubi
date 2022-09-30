@@ -44,11 +44,17 @@ cat $ROOT_PATH/gitops-output.json
 echo "******************************"
 
 NAMESPACE=$(cat .namespace)
-COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
+echo "NAMESPACE: $NAMESPACE"
+COMPONENT_NAME=$(jq -r '.name // "terraform-gitops-ubi"' gitops-output.json)
+echo "COMPONENT_NAME: $COMPONENT_NAME"
 BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
+echo "BRANCH: $BRANCH"
 SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
+echo "SERVER_NAME: $SERVER_NAME"
 LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
+echo "LAYER: $LAYER"
 TYPE=$(jq -r '.type // "base"' gitops-output.json)
+echo "TYPE: $TYPE"
 
 mkdir -p .testrepo
 
