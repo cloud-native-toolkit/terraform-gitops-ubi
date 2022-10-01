@@ -91,8 +91,15 @@ check_k8s_pod () {
     echo "Pods: "
     echo ""
     kubectl get pods --all-namespaces
+    kubectl get pods -n openshift-gitops
     echo "--------------------"
+    echo ""
     kubectl get pods -n "${NS}"
+    echo ""
+    echo "Deployments: "
+    echo ""
+    kubectl get deployments -n openshift-gitops
+
     echo ""
     echo "Applications: "
     echo ""

@@ -39,3 +39,4 @@ versions:
         moduleRef:
           id: gitops
           output: sealed_secrets_cert
+      - name: command
