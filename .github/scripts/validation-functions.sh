@@ -99,7 +99,6 @@ check_k8s_pod () {
     echo "Deployments: "
     echo ""
     kubectl get deployments -n openshift-gitops
-
     echo ""
     echo "Applications: "
     echo ""

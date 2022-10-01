@@ -40,3 +40,6 @@ versions:
           id: gitops
           output: sealed_secrets_cert
       - name: command
+        type: string
+        description: "command to run in container"
+        default: "echo 'hello world'"
