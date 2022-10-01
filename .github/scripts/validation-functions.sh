@@ -83,10 +83,15 @@ check_k8s_pod () {
     exit 1
   else
     echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
+    echo "All namespaces:"
+    echo ""
+    kubectl get namespaces
     echo "Component name: ${COMPONENT_NAME}"
     echo ""
     echo "Pods: "
     echo ""
+    kubectl get pods --all-namespaces
+    echo "--------------------"
     kubectl get pods -n "${NS}"
     echo ""
     echo "Applications: "

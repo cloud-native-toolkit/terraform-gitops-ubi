@@ -1,6 +1,8 @@
 # Terraform GitOps UBI module
-
-![Verify and release module](https://github.com/ibm-garage-cloud/terraform-gitops-ubi/workflows/Verify%20and%20release%20module/badge.svg)
+ 
+ | Verify  |  Metadata   |
+ |--- | --- |
+ |![Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify.yaml/badge.svg)|![Verify metadata](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify-pr.yaml/badge.svg)|
 
 ## 1. Objective
 
@@ -70,3 +72,4 @@ module "terraform-gitops-ubi" {
    command = "echo 'hello world'"
 }
 ```
+
