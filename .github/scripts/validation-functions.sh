@@ -68,6 +68,7 @@ check_k8s_pod () {
 
   local NS="$1"
   local COMPONENT_NAME="$2"
+  local 
 
   count=0
   until kubectl get namespace "${NS}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
@@ -82,8 +83,29 @@ check_k8s_pod () {
     exit 1
   else
     echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
+    echo "All namespaces:"
+    echo ""
+    kubectl get namespaces
     echo "Component name: ${COMPONENT_NAME}"
+    echo ""
+    echo "Pods: "
+    echo ""
+    kubectl get pods --all-namespaces
+    kubectl get pods -n openshift-gitops
+    echo "--------------------"
+    echo ""
     kubectl get pods -n "${NS}"
+    echo ""
+    echo "Deployments: "
+    echo ""
+    kubectl get deployments -n openshift-gitops
+    echo ""
+    echo "Applications: "
+    echo ""
+    kubectl get applications -n "${NS}"
+    echo "Deployments: "
+    echo ""
+    kubectl get deployments -n "${NS}"
     
     POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')
     

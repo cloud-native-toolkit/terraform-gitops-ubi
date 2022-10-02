@@ -4,3 +4,6 @@ terraform.tfstate
 terraform.tfstate.backup
 .terraform/
 .ds_store
+ubi-helm-catalog.yaml
+test-bom.yaml
+example/
