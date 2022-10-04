@@ -113,10 +113,13 @@ check_k8s_pod () {
     NAME="ubi-helm-ubi-helm"
     count=0
     until kubectl get "${GITOPS_TYPE}" "${NAME}" -n "${NS}" 1> /dev/null 2> /dev/null || [[ $count -gt 20 ]]; do
-      echo "Verify all deployments"
+      echo "------($count)---------------"
+      echo "Verify all deployments containing UBI"
       kubectl get deployments --all-namespaces | grep ubi
-      echo "Verify all namespaces"
+      echo "-----------------------------"
+      echo "Verify all namespaces containing UBI"
       kubectl get namespaces | grep "ubi"
+      echo "-----------------------------"
       echo "Waiting for ${GITOPS_TYPE}/${NAME} in ${NS}"
       count=$((count + 1))
       sleep 30
