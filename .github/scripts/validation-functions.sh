@@ -108,7 +108,20 @@ check_k8s_pod () {
     echo "******************************"
     echo "UBI deployments: "
     echo ""
-    kubectl get deployments --all-namespaces | grep ubi
+
+    GITOPS_TYPE=deployment
+    NAME="ubi-helm-ubi-helm"
+    count=0
+    until kubectl get "${GITOPS_TYPE}" "${NAME}" -n "${NS}" 1> /dev/null 2> /dev/null || [[ $count -gt 20 ]]; do
+      echo "Verify all deployments"
+      kubectl get deployments --all-namespaces | grep ubi
+      echo "Verify all namespaces"
+      kubectl get namespaces | grep "ubi"
+      echo "Waiting for ${GITOPS_TYPE}/${NAME} in ${NS}"
+      count=$((count + 1))
+      sleep 30
+    done
+
     echo ""
     echo "******************************"
     echo "Argo CD - Applications --all-namespaces: "
@@ -116,17 +129,12 @@ check_k8s_pod () {
     kubectl get applications --all-namespaces 
     kubectl get applications --all-namespaces | grep ubi-helm
     
-    GITOPS_TYPE=deployment
-    NAME="ubi-helm-ubi-helm"
-    count=0
+ 
 
-    until kubectl get "${GITOPS_TYPE}" "${NAME}" -n "${NS}" 1> /dev/null 2> /dev/null || [[ $count -gt 20 ]]; do
-      echo "Verify all deployments"
-      kubectl get deployments --all-namespaces | grep ubi
-      echo "Waiting for ${GITOPS_TYPE}/${NAME} in ${NS}"
-      count=$((count + 1))
-      sleep 30
-    done
+    echo "******************************"
+    echo "UBI - Deployments --all-namespaces: "
+    echo ""
+
 
     echo ""
     echo "******************************"
