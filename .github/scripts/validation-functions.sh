@@ -91,6 +91,8 @@ check_k8s_pod () {
     echo "All namespaces:"
     echo ""
     kubectl get namespaces
+    echo "Ubi namespaces:"
+    kubectl get namespaces | grep "ubi"
     echo ""
     echo "******************************"
     echo "Component name: ${COMPONENT_NAME}"
@@ -99,6 +101,8 @@ check_k8s_pod () {
     echo "Pods: "
     echo ""
     kubectl get pods --all-namespaces
+    echo "Ubi pods:"
+    kubectl get pods | grep "ubi"
     kubectl get pods -n openshift-gitops
     echo "-----------------------------"
     echo ""
@@ -113,6 +117,8 @@ check_k8s_pod () {
     echo "Argo CD - Applications: "
     echo ""
     kubectl get applications -n "${NS}"
+    echo ""
+    echo "******************************"
     echo "Deployments: "
     echo ""
     kubectl get deployments -n "${NS}"
