@@ -103,7 +103,7 @@ check_k8s_pod () {
     kubectl get pods --all-namespaces
     echo "******************************"
     echo "Ubi pods:"
-    kubectl get pods | grep ubi
+    kubectl get pods --all-namespaces | grep ubi
     kubectl get pods -n openshift-gitops
     echo "-----------------------------"
     echo ""
