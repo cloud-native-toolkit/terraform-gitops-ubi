@@ -114,7 +114,7 @@ check_k8s_pod () {
     kubectl get deployments -n openshift-gitops
     echo ""
     echo "******************************"
-    echo "Argo CD - Applications: "
+    echo "Argo CD - Applications --all-namespaces: "
     echo ""
     kubectl get applications --all-namespaces
     echo ""
