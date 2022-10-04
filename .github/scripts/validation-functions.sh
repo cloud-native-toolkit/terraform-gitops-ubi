@@ -90,7 +90,7 @@ check_k8s_pod () {
     echo "******************************"
     echo "All namespaces:"
     echo ""
-    kubectl get namespaces
+    #kubectl get namespaces
     echo "Ubi namespaces:"
     kubectl get namespaces | grep "ubi"
     echo ""
@@ -98,36 +98,28 @@ check_k8s_pod () {
     echo "Component name: ${COMPONENT_NAME}"
     echo ""
     echo "******************************"
-    echo "Pods: "
+    echo "All pods: "
     echo ""
-    kubectl get pods --all-namespaces
+    #kubectl get pods --all-namespaces
     echo "******************************"
     echo "Ubi pods:"
     kubectl get pods --all-namespaces | grep ubi
-    kubectl get pods -n openshift-gitops
     echo "-----------------------------"
     echo ""
-    kubectl get pods -n "${NS}"
-    echo ""
     echo "******************************"
-    echo "Deployments: "
+    echo "UBI deployments: "
     echo ""
-    kubectl get deployments -n openshift-gitops
+    kubectl get deployments --all-namespaces | grep ubi
     echo ""
     echo "******************************"
     echo "Argo CD - Applications --all-namespaces: "
     echo ""
-    kubectl get applications --all-namespaces
+    kubectl get applications --all-namespaces 
+    kubectl get applications --all-namespaces | grep ubi
     echo ""
-    echo "******************************"
-    echo "Deployments: "
-    echo ""
-    kubectl get deployments -n "${NS}"
-
     echo "******************************"
     echo "Verify if a UBI pod exists: "    
-    POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')
-    
+    POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
     if [[ $POD == "" ]] ; then
       echo "No pod found for ${COMPONENT_NAME} in ${NS}"
     else     
