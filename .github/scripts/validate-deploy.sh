@@ -80,12 +80,12 @@ echo ""
 check_k8s_namespace "${NAMESPACE}"
 
 echo "******************************"
-echo " TestCase 4: validate deployment check_k8s_pod"
+echo " TestCase 3: validate deployment check_k8s_pod"
 echo "******************************"
 check_k8s_pod "${NAMESPACE}" "${COMPONENT_NAME}"
 
 echo "******************************"
-echo " TestCase 3: validate deployment check_k8s_resource"
+echo " TestCase 4: validate deployment check_k8s_resource"
 echo "******************************"
 check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
 
