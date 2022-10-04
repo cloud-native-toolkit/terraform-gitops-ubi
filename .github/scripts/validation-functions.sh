@@ -131,21 +131,14 @@ check_k8s_pod () {
     echo ""
     kubectl get applications --all-namespaces 
     kubectl get applications --all-namespaces | grep ubi-helm
-    
- 
-
-    echo "******************************"
-    echo "UBI - Deployments --all-namespaces: "
-    echo ""
-
-
     echo ""
     echo "******************************"
     echo "Verify if a UBI pod exists: "    
     POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
     if [[ $POD == "" ]] ; then
       echo "No pod found for ${COMPONENT_NAME} in ${NS}"
-    else     
+    else 
+      echo "Execute command in pod ${POD}" 
       kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
     fi
     sleep 30
