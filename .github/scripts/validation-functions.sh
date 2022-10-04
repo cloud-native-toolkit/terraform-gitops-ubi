@@ -116,7 +116,7 @@ check_k8s_pod () {
     echo "******************************"
     echo "Argo CD - Applications: "
     echo ""
-    kubectl get applications -n "${NS}"
+    kubectl get applications --all-namespaces
     echo ""
     echo "******************************"
     echo "Deployments: "
