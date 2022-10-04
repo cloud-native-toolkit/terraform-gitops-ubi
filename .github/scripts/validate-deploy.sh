@@ -68,24 +68,24 @@ find . -name "*"
 set -e
 
 echo "******************************"
-echo " 1. validate deployment validate_gitops_content"
+echo " TestCase 1: validate deployment validate_gitops_content"
 echo "******************************"
 echo ""
 validate_gitops_content "${NAMESPACE}" "${LAYER}" "${SERVER_NAME}" "${TYPE}" "${COMPONENT_NAME}" "values.yaml"
 
 echo "******************************"
-echo " 2. validate deployment check_k8s_namespace"
+echo " TestCase 2: validate deployment check_k8s_namespace"
 echo "******************************"
 echo ""
 check_k8s_namespace "${NAMESPACE}"
 
-# echo "******************************"
-# echo " 3. validate deployment check_k8s_resource"
-# echo "******************************"
-# check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
+echo "******************************"
+echo " TestCase 3: validate deployment check_k8s_resource"
+echo "******************************"
+check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
 
 echo "******************************"
-echo " 4. validate deployment check_k8s_pod"
+echo " TestCase 4: validate deployment check_k8s_pod"
 echo "******************************"
 check_k8s_pod "${NAMESPACE}" "${COMPONENT_NAME}"
 
