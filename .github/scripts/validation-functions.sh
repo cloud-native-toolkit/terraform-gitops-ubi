@@ -86,31 +86,27 @@ check_k8s_pod () {
     exit 1
   else
     echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
-    echo "******************************"
-    echo "All namespaces:"
-    echo ""
-    #kubectl get namespaces
-    echo "Ubi namespaces:"
-    kubectl get namespaces | grep "ubi"
-    echo ""
-    echo "******************************"
-    echo "Component name: ${COMPONENT_NAME}"
-    echo ""
-    echo "******************************"
-    echo "All pods: "
-    echo ""
-    #kubectl get pods --all-namespaces
-    echo "******************************"
-    echo "Ubi pods:"
-    kubectl get pods --all-namespaces | grep ubi
-    echo "-----------------------------"
-    echo ""
-    echo "******************************"
-    echo "UBI deployments: "
-    echo ""
+    sleep 30
+  fi
 
-    GITOPS_TYPE=deployment
-    NAME="ubi-helm-ubi-helm"
+  echo "******************************"
+  echo "Ubi namespaces:"
+  kubectl get namespaces | grep "ubi"
+  echo ""
+  echo "******************************"
+  echo "Component name: ${COMPONENT_NAME}"
+  echo ""
+  echo "******************************"
+  echo "Ubi pods:"
+  kubectl get pods --all-namespaces | grep ubi
+  echo "-----------------------------"
+  echo ""
+  echo "******************************"
+  echo "UBI deployments: "
+  echo ""
+
+  GITOPS_TYPE=deployment
+  NAME="ubi-helm-ubi-helm"
     count=0
     until kubectl get "${GITOPS_TYPE}" "${NAME}" -n "${NS}" 1> /dev/null 2> /dev/null || [[ $count -gt 20 ]]; do
       echo "------($count)---------------"
@@ -125,24 +121,23 @@ check_k8s_pod () {
       sleep 30
     done
 
-    echo ""
-    echo "******************************"
-    echo "Argo CD - Applications --all-namespaces: "
-    echo ""
-    kubectl get applications --all-namespaces 
-    kubectl get applications --all-namespaces | grep ubi-helm
-    echo ""
-    echo "******************************"
-    echo "Verify if a UBI pod exists: "    
-    POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
-    echo "Pod: ${POD}"
-    if [[ ${POD} == "" ]] ; then
+  echo ""
+  echo "******************************"
+  echo "Argo CD - Applications --all-namespaces: "
+  echo ""
+  kubectl get applications --all-namespaces 
+  kubectl get applications --all-namespaces | grep ubi-helm
+  
+  echo ""
+  echo "******************************"
+  echo "Verify if a UBI pod exists: "    
+  POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
+  echo "Pod: ${POD}"
+  if [[ ${POD} == "" ]] ; then
       echo "No pod found for ${COMPONENT_NAME} in ${NS}"
-    else 
+  else 
       echo "Execute command in pod ${POD}" 
       kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
-    fi
-    sleep 30
   fi
 }
 
