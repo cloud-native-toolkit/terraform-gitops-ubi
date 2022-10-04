@@ -139,6 +139,8 @@ check_k8s_resource () {
   local GITOPS_TYPE="$2"
   local NAME="$3"
 
+  echo "******************************"
+  echo ""
   echo "Checking for resource: ${NS}/${GITOPS_TYPE}/${NAME}"
 
   count=0
@@ -162,5 +164,7 @@ check_k8s_resource () {
     kubectl wait --for=condition=complete "job/${NAME}" -n "${NS}" || exit 1
   fi
 
+  echo "******************************"
+  echo ""
   echo "Done checking for resource: ${NS}/${GITOPS_TYPE}/${NAME}"
 }
