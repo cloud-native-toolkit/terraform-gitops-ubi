@@ -72,7 +72,6 @@ check_k8s_pod () {
 
   local NS="$1"
   local COMPONENT_NAME="$2"
-  local 
 
   count=0
   until kubectl get namespace "${NS}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
