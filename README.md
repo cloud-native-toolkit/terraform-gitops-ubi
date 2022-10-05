@@ -14,7 +14,7 @@ The UBI helm-chart example is based on the [ubi-helm repository](https://github.
 
 In the values file we can configure the [`replica count`](https://github.com/ibm/ubi-helm/blob/main/charts/ubi-helm/values.yaml#L6) of the pods. The deployed containers are only a basic UBI ([`Red Hat Universal Base Image`](https://catalog.redhat.com/software/containers/ubi8/ubi/5c359854d70cc534b3a3784e) ) with a linux operating system.
 
-The helm chart implementation of that module and you can find in the folder [`chart/ubi-helm`](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/tree/main/chart/ubi-helm). 
+The helm chart implementation of that module you can find in the folder [`chart/ubi-helm`](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/tree/main/chart/ubi-helm). 
 
 > Note: That folder will be copied to the payload directory of your GitOps bootstrap configuration.
 
