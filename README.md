@@ -28,7 +28,9 @@ The following section shows an example deployment with the `terraform-gitops-ubi
 
 We use the GitOps bootstrap configuration for ArgoCD provided by the [Technology Zone Accelerator Toolkit](https://modules.cloudnativetoolkit.dev/). For details you can visit the [terraform-tools-gitops](https://github.com/cloud-native-toolkit/terraform-tools-gitops) module.
 
-During the deployment of the module create or update that GitOps repository that contains two folders. The following image shows the dependencies of the GitOps bootstrap configuration and the created files.
+During the deployment of this module by creating or updating your GitOps repository which contains folders for the ArgoCD configuration and the payload to deploy the applications to a cluster. 
+
+The following image shows the dependencies of the GitOps bootstrap configuration and the created files in the related folders for  ArgoCD configuration and payload to deploy the applications to a cluster.
 
 ![](images/module-04.png)
 
