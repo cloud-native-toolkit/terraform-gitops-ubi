@@ -26,7 +26,7 @@ You can pass a command for the start up of the container with the module variabl
 
 The following section shows an example deployment with the `terraform-gitops-ubi` module using GitOps.
 
-We use the GitOps bootstrap configuration for ArgoCD provided be the [Technology Zone Accelerator Toolkit](https://modules.cloudnativetoolkit.dev/). For details you can visit the [terraform-tools-gitops](https://github.com/cloud-native-toolkit/terraform-tools-gitops) module.
+We use the GitOps bootstrap configuration for ArgoCD provided by the [Technology Zone Accelerator Toolkit](https://modules.cloudnativetoolkit.dev/). For details you can visit the [terraform-tools-gitops](https://github.com/cloud-native-toolkit/terraform-tools-gitops) module.
 
 During the deployment of the module create or update that GitOps repository that contains two folders. The following image shows the dependencies of the GitOps bootstrap configuration and the created files.
 
