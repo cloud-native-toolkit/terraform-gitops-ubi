@@ -16,24 +16,28 @@ validate_gitops_content () {
   local GITOPS_TYPE="$4"
   local GITOPS_COMPONENT_NAME="$5"
   local PAYLOAD_FILE="${6:-values.yaml}"
-
+  echo ""
+  echo "******************************"
   echo "Validating: namespace=${NS}, layer=${GITOPS_LAYER}, server=${GITOPS_SERVER_NAME}, type=${GITOPS_TYPE}, component=${GITOPS_COMPONENT_NAME}"
-
+  echo "******************************"
   if [[ ! -f "argocd/${GITOPS_LAYER}/cluster/${GITOPS_SERVER_NAME}/${GITOPS_TYPE}/${NS}-${GITOPS_COMPONENT_NAME}.yaml" ]]; then
     echo "ArgoCD config missing - argocd/${GITOPS_LAYER}/cluster/${GITOPS_SERVER_NAME}/${GITOPS_TYPE}/${NS}-${GITOPS_COMPONENT_NAME}.yaml" >&2
     exit 1
   fi
-
+  echo ""
+  echo "******************************"
   echo "Printing argocd/${GITOPS_LAYER}/cluster/${GITOPS_SERVER_NAME}/${GITOPS_TYPE}/${NS}-${GITOPS_COMPONENT_NAME}.yaml"
   cat "argocd/${GITOPS_LAYER}/cluster/${GITOPS_SERVER_NAME}/${GITOPS_TYPE}/${NS}-${GITOPS_COMPONENT_NAME}.yaml"
-
+  echo "******************************"
   if [[ ! -f "payload/${GITOPS_LAYER}/namespace/${NS}/${GITOPS_COMPONENT_NAME}/${PAYLOAD_FILE}" ]]; then
     echo "Application values not found - payload/${GITOPS_LAYER}/namespace/${NS}/${GITOPS_COMPONENT_NAME}/${PAYLOAD_FILE}" >&2
     exit 1
   fi
-
+  echo ""
+  echo "******************************"
   echo "Printing payload/${GITOPS_LAYER}/namespace/${NS}/${GITOPS_COMPONENT_NAME}/${PAYLOAD_FILE}"
   cat "payload/${GITOPS_LAYER}/namespace/${NS}/${GITOPS_COMPONENT_NAME}/${PAYLOAD_FILE}"
+  echo "******************************"
 }
 
 check_k8s_namespace () {
@@ -68,7 +72,6 @@ check_k8s_pod () {
 
   local NS="$1"
   local COMPONENT_NAME="$2"
-  local 
 
   count=0
   until kubectl get namespace "${NS}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
@@ -83,38 +86,58 @@ check_k8s_pod () {
     exit 1
   else
     echo "Found namespace: ${NS}. Sleeping for 30 seconds to wait for everything to settle down"
-    echo "All namespaces:"
-    echo ""
-    kubectl get namespaces
-    echo "Component name: ${COMPONENT_NAME}"
-    echo ""
-    echo "Pods: "
-    echo ""
-    kubectl get pods --all-namespaces
-    kubectl get pods -n openshift-gitops
-    echo "--------------------"
-    echo ""
-    kubectl get pods -n "${NS}"
-    echo ""
-    echo "Deployments: "
-    echo ""
-    kubectl get deployments -n openshift-gitops
-    echo ""
-    echo "Applications: "
-    echo ""
-    kubectl get applications -n "${NS}"
-    echo "Deployments: "
-    echo ""
-    kubectl get deployments -n "${NS}"
-    
-    POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')
-    
-    if [[ $POD == "" ]] ; then
-      echo "No pod found for ${COMPONENT_NAME} in ${NS}"
-    else     
-      kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
-    fi
     sleep 30
+  fi
+
+  echo "******************************"
+  echo "Ubi namespaces:"
+  kubectl get namespaces | grep "ubi"
+  echo ""
+  echo "******************************"
+  echo "Component name: ${COMPONENT_NAME}"
+  echo ""
+  echo "******************************"
+  echo "Ubi pods:"
+  kubectl get pods --all-namespaces | grep ubi
+  echo "-----------------------------"
+  echo ""
+  echo "******************************"
+  echo "UBI deployments: "
+  echo ""
+
+  GITOPS_TYPE=deployment
+  NAME="ubi-helm-ubi-helm"
+    count=0
+    until kubectl get "${GITOPS_TYPE}" "${NAME}" -n "${NS}" 1> /dev/null 2> /dev/null || [[ $count -gt 20 ]]; do
+      echo "------($count)---------------"
+      echo "Verify all deployments containing UBI"
+      kubectl get deployments --all-namespaces | grep ubi
+      echo "-----------------------------"
+      echo "Verify all namespaces containing UBI"
+      kubectl get namespaces | grep "ubi"
+      echo "-----------------------------"
+      echo "Waiting for ${GITOPS_TYPE}/${NAME} in ${NS}"
+      count=$((count + 1))
+      sleep 30
+    done
+
+  echo ""
+  echo "******************************"
+  echo "Argo CD - Applications --all-namespaces: "
+  echo ""
+  kubectl get applications --all-namespaces 
+  kubectl get applications --all-namespaces | grep ubi-helm
+  
+  echo ""
+  echo "******************************"
+  echo "Verify if a UBI pod exists: "    
+  POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
+  echo "Pod: ${POD}"
+  if [[ ${POD} == "" ]] ; then
+      echo "No pod found for ${COMPONENT_NAME} in ${NS}"
+  else 
+      echo "Execute command in pod ${POD}" 
+      kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
   fi
 }
 
@@ -128,6 +151,8 @@ check_k8s_resource () {
   local GITOPS_TYPE="$2"
   local NAME="$3"
 
+  echo "******************************"
+  echo ""
   echo "Checking for resource: ${NS}/${GITOPS_TYPE}/${NAME}"
 
   count=0
@@ -151,5 +176,7 @@ check_k8s_resource () {
     kubectl wait --for=condition=complete "job/${NAME}" -n "${NS}" || exit 1
   fi
 
+  echo "******************************"
+  echo ""
   echo "Done checking for resource: ${NS}/${GITOPS_TYPE}/${NAME}"
 }
