@@ -34,7 +34,7 @@ spec:
           command: ["/bin/sh","-c"]
           args: 
             - while true; do
-              $COMMAND;
+              eval "$COMMAND";
               sleep 1000;
               done;
           livenessProbe:

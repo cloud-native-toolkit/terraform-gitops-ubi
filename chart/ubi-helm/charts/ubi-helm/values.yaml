@@ -5,4 +5,4 @@ replicaCount: 2
 image:
   repository: "registry.access.redhat.com/ubi8/ubi"
   tag: latest
-command: "echo helloworld!"
+command: '''curl -X POST "http://watson-nlp-watson-nlp:8080/v1/watson_runtime/NlpService/SyntaxPredict" -H "accept: application/json" -H "grpc-metadata-mm-model-id: syntax_izumo_lang_en_stock" -H "content-type: application/json" -d " { \"rawDocument\": { \"text\": \"It is so easy to embed Watson NLP in application. Very cool\" }}"'''
