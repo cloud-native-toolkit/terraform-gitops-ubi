@@ -6,7 +6,8 @@
 
 ## 1. Objective
 
-This module is an example implementation for a `custom module`.
+This module is an example implementation for a `custom module`. 
+You can find the related example module implementation documentation in the draft ["Lab 4: Develop an own GitOps module"](https://operate.cloudnativetoolkit.dev/learn/iascable/lab4/) of the "TechZone Accelerator Toolkit: Operate" page.
 
 Therefor it just deploys a pure [UBI image](https://catalog.redhat.com/software/containers/ubi8/ubi/5c359854d70cc534b3a3784e) (`Red Hat Universal Base Image`) as a container with [Helm](https://helm.sh/). 
 
