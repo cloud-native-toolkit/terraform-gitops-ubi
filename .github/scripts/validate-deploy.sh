@@ -79,15 +79,15 @@ echo "******************************"
 echo ""
 check_k8s_namespace "${NAMESPACE}"
 
-echo "******************************"
-echo " TestCase 3: validate deployment check_k8s_pod"
-echo "******************************"
+#echo "******************************"
+#echo " TestCase 3: validate deployment check_k8s_pod"
+#echo "******************************"
 # check_k8s_pod "${NAMESPACE}" "${COMPONENT_NAME}"
 
-echo "******************************"
-echo " TestCase 4: validate deployment check_k8s_resource"
-echo "******************************"
-COMPONENT_NAME="ubi-helm-ubi-helm"
+#echo "******************************"
+#echo " TestCase 4: validate deployment check_k8s_resource"
+#echo "******************************"
+#COMPONENT_NAME="ubi-helm-ubi-helm"
 # check_k8s_resource "${NAMESPACE}" "deployment" "${COMPONENT_NAME}"
 
 cd ..
