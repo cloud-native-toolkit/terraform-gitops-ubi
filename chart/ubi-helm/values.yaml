@@ -1,9 +1,9 @@
 # Default values for chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-"ubi-helm":
-  replicaCount: 1
-  image:
-    repository: "registry.access.redhat.com/ubi8/ubi"
-    tag: latest
-  command: 'echo "hello world"'
+
+replicaCount: 1
+image:
+  repository: "registry.access.redhat.com/ubi8/ubi"
+  tag: latest
+command: 'echo "hello world"'

@@ -4,14 +4,12 @@ locals {
   service_url   = "http://${local.name}.${var.namespace}"
   
   values_content = {
-    ubi-helm= {
-      replicaCount = 1
-      image = {
-        repository = "registry.access.redhat.com/ubi8/ubi"
-        tag = "latest"
-      }
-      command = "${var.command}"
+    replicaCount = 1
+    image = {
+      repository = "registry.access.redhat.com/ubi8/ubi"
+      tag = "latest"
     }
+    command = "${var.command}"
   }
   layer = "applications"
   type  = "base"
