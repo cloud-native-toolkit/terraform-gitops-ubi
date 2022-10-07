@@ -134,10 +134,18 @@ check_k8s_pod () {
   POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
   echo "Pod: ${POD}"
   if [[ ${POD} == "" ]] ; then
-      echo "No pod found for ${COMPONENT_NAME} in ${NS}"
+      echo "Error: No pod found for ${COMPONENT_NAME} in ${NS}"
+      exit 1
   else 
       echo "Execute command in pod ${POD}" 
-      kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls
+      RESULT_1=$(kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls)
+      RESULT_2=$(echo $RESULT_1 | grep bin)
+      if [[ ${RESULT_2} == "bin" ]] ; then
+         echo "Success UBI pod is running and accessable" 
+      else
+         echo "Error: UBI pod is running but to accessable" 
+         exit 1
+      fi
   fi
 }
 
