@@ -72,7 +72,9 @@ The module depends on the following software components:
 
 ### Terraform providers
 
-None
+- name: gitops
+        source: ["cloud-native-toolkit/gitops"](https://registry.terraform.io/providers/cloud-native-toolkit/gitops/latest/docs) with
+        `version = ">= 0.7.3"`
 
 ## 4. Example usage
 
