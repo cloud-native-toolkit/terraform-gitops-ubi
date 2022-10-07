@@ -87,5 +87,5 @@ variable "cluster_type" {
 
 variable "command" {
   description = "command to run in container"
-  default     = "echo 'hello world'"
+  default     = "echo 'hello world' >> helloworld.log"
 }
