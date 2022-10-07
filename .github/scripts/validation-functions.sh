@@ -130,7 +130,7 @@ check_k8s_pod () {
   
   echo ""
   echo "******************************"
-  echo "Verify if a UBI pod exists: "    
+  echo "Verify if an UBI pod exists: "    
   POD=$(kubectl get -n "${NS}" pods | grep "${COMPONENT_NAME}" | head -n 1 | awk '{print $1;}')    
   echo "Pod: ${POD}"
   if [[ ${POD} == "" ]] ; then
