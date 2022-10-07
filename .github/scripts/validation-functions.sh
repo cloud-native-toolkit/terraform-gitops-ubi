@@ -140,6 +140,7 @@ check_k8s_pod () {
       echo "Execute command in pod ${POD}" 
       RESULT_1=$(kubectl exec -n "${NS}" "${POD}" --container "${COMPONENT_NAME}" -- ls)
       RESULT_2=$(echo $RESULT_1 | grep bin)
+      echo "Result: $RESULT_1"
       if [[ ${RESULT_2} == "bin" ]] ; then
          echo "Success UBI pod is running and accessable" 
       else
