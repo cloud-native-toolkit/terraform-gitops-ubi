@@ -1,6 +1,6 @@
 # Terraform GitOps UBI module
 
-| Verify  |  Metadata   |
+| Current module version status  (_GitHub action name: [Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify.yaml)_)  |  Current pull request status (_GitHub workflow name: [Verify PR](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify-pr.yaml))_  |
 |--- | --- |
 |![Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify.yaml/badge.svg)|![Verify metadata](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify-pr.yaml/badge.svg)|
 
@@ -73,8 +73,15 @@ The module depends on the following software components:
 ### Terraform providers
 
 - name: gitops
-        source: ["cloud-native-toolkit/gitops"](https://registry.terraform.io/providers/cloud-native-toolkit/gitops/latest/docs) with
-        `version = ">= 0.7.3"`
+        source: ["cloud-native-toolkit/gitops"](https://registry.terraform.io/providers/cloud-native-toolkit/gitops/latest/docs) 
+        version: `">= 0.7.3"`
+
+### Dependencies
+
+- [gitops](github.com/cloud-native-toolkit/terraform-tools-gitops.git) 
+   version: `">= 1.1.0"`
+- [namespace](github.com/cloud-native-toolkit/terraform-gitops-namespace.git) 
+   version: `">= 1.0.0"`
 
 ## 4. Example usage
 
