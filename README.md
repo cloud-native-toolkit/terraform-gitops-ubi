@@ -76,14 +76,24 @@ The module depends on the following software components:
         source: ["cloud-native-toolkit/gitops"](https://registry.terraform.io/providers/cloud-native-toolkit/gitops/latest/docs) 
         version: `">= 0.7.3"`
 
-### Dependencies
+### Module dependencies
 
 - [gitops](github.com/cloud-native-toolkit/terraform-tools-gitops.git) 
    version: `">= 1.1.0"`
 - [namespace](github.com/cloud-native-toolkit/terraform-gitops-namespace.git) 
    version: `">= 1.0.0"`
 
+
 ## 4. Example usage
+
+| Variable | Default value | Description |
+| --- | --- | --- |
+| `gitops_config` | No | Config information regarding the gitops repo structure |
+| `git_credentials` | No | The credentials for the gitops repo(s) (_sensitive_)|
+| `namespace` | No | The namespace where the application should be deployed |
+| `server_name` | `default` |  The name of the server |
+| `command` | `"echo 'hello world' >> helloworld.log"` | Command to run in container |
+
 
 Below you can see the possible input variables.
 
