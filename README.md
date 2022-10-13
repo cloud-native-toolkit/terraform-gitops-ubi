@@ -1,6 +1,6 @@
 # Terraform GitOps UBI module
 
-| Current module version status  (_GitHub action name: [Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify.yaml)_)  |  Current pull request status (_GitHub workflow name: [Verify PR](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify-pr.yaml))_  |
+| Current module version status  (_GitHub workflow name: [Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify.yaml)_)  |  Current pull request status (_GitHub workflow name: [Verify PR](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/blob/main/.github/workflows/verify-pr.yaml))_  |
 |--- | --- |
 |![Verify](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify.yaml/badge.svg)|![Verify metadata](https://github.com/cloud-native-toolkit/terraform-gitops-ubi/actions/workflows/verify-pr.yaml/badge.svg)|
 
@@ -27,7 +27,7 @@ You can pass a command for the start up of the container with the module variabl
 
 The following section shows an example deployment with the `terraform-gitops-ubi` module using GitOps.
 
-We use the GitOps bootstrap configuration for ArgoCD provided by the [Technology Zone Accelerator Toolkit](https://modules.cloudnativetoolkit.dev/). For details you can visit the documentation [Technology Zone Accelerator Toolkit:operate](https://operate.cloudnativetoolkit.dev/reference/gitops-structure) and the [terraform-tools-gitops](https://github.com/cloud-native-toolkit/terraform-tools-gitops) module.
+We use the GitOps bootstrap configuration for ArgoCD provided by the [TechZone Accelerator Toolkit](https://modules.cloudnativetoolkit.dev/). For details you can visit the documentation [TechZone Accelerator Toolkit:operate](https://operate.cloudnativetoolkit.dev/reference/gitops-structure) and the [terraform-tools-gitops](https://github.com/cloud-native-toolkit/terraform-tools-gitops) module.
 
 By creating or updating your GitOps bootstrap repository you trigger a deployment. 
 The repository contains folders for the ArgoCD configuration and the payload to deploy the applications to a cluster. 
